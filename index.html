@@ -17,10 +17,10 @@
 
   .site-header { background:var(--white); border-bottom:1px solid var(--border); padding:0 2rem; display:flex; align-items:center; height:64px; }
   .page-title { font-family:var(--serif); font-size:1.1rem; font-weight:400; color:var(--navy); }
-  .logo-wrap { margin-left:auto; display:flex; align-items:center; gap:1rem; }
+  .logo-wrap { margin-left:auto; }
   .logo-wrap img { height:28px; display:block; }
-  #export-pdf-btn { background:var(--navy); color:white; border:none; font-size:0.72rem; font-weight:600; padding:0.45rem 0.9rem; border-radius:3px; cursor:pointer; letter-spacing:0.02em; transition:background 0.15s; white-space:nowrap; }
-  #export-pdf-btn:hover { background:var(--teal); }
+  #export-pdf-btn { background:rgba(255,255,255,0.15); color:white; border:1px solid rgba(255,255,255,0.45); font-size:0.7rem; font-weight:600; padding:0.3rem 0.75rem; border-radius:3px; cursor:pointer; letter-spacing:0.02em; transition:background 0.15s; white-space:nowrap; }
+  #export-pdf-btn:hover { background:rgba(255,255,255,0.28); }
   #print-header { display:none; }
   #meta-bar { background:var(--teal); color:rgba(255,255,255,0.9); font-size:0.72rem; padding:6px 2rem; display:flex; gap:2rem; align-items:center; }
   #coverage-toggle { margin-left:auto; cursor:pointer; text-decoration:underline; text-decoration-style:dotted; opacity:0.9; }
@@ -115,6 +115,13 @@
 
   #range-view { display:none; }
   #trends-view { display:none; }
+  #opportunities-view { display:none; }
+  .opp-intro { background:var(--white); border:1px solid var(--border); border-bottom:none; padding:0.9rem 1rem; font-size:0.82rem; color:var(--navy); line-height:1.5; }
+  .opp-intro strong { color:var(--teal); }
+  .opp-brand-link { color:var(--navy); font-weight:600; cursor:pointer; text-decoration:none; }
+  .opp-brand-link:hover { color:var(--teal); text-decoration:underline; }
+  .opp-price-range { font-size:0.78rem; color:var(--muted); }
+  .opp-cheapest-badge { font-size:0.62rem; padding:2px 7px; border-radius:2px; border:1px solid; white-space:nowrap; font-weight:500; }
   .trend-cards { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:0.8rem; padding:1rem; background:var(--white); border:1px solid var(--border); border-top:none; }
   .trend-card { border:1px solid var(--border); border-radius:3px; padding:0.8rem 1rem; }
   .trend-card .tc-site { font-size:0.78rem; font-weight:600; color:var(--navy); margin-bottom:0.3rem; }
@@ -409,12 +416,12 @@
 <div class="site-header">
   <div class="page-title">Brand Price Comparison Dashboard</div>
   <div class="logo-wrap"><img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTYwIiBoZWlnaHQ9IjQ4IiB2aWV3Qm94PSIwIDAgMTYwIDQ4IiBmaWxsPSJub25lIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciPgo8ZyBjbGlwLXBhdGg9InVybCgjY2xpcDBfMjE1NF8yNzkzKSI+CjxnIGNsaXAtcGF0aD0idXJsKCNjbGlwMV8yMTU0XzI3OTMpIj4KPHBhdGggZD0iTTEwLjQxNzQgOS41MTkxNlY5LjQ1MjkxQzExLjE1MzEgOS4wMzI2NiAxMS43NTkyIDguNDE4MzEgMTIuMTY5NSA3LjY3Njk2QzEyLjU3OTggNi45MzU2MSAxMi43Nzg0IDYuMDk1NzYgMTIuNzQzNyA1LjI0OTE2QzEyLjc0MzcgMi41OTE0NSAxMC44ODg1IDAuMDk1NzAzMSA2Ljc4NzgzIDAuMDk1NzAzMUgxLjE4NTNWMjAuNDU5Mkg3LjMxMDU2QzExLjcyNzggMjAuNDU5MiAxNC4wMjQ4IDE3LjU4OCAxNC4wMjQ4IDE0LjQzN0MxNC4wNzY3IDEzLjMyODMgMTMuNzQ2OSAxMi4yMzUzIDEzLjA5MDUgMTEuMzQwNEMxMi40MzQgMTAuNDQ1NCAxMS40OTA1IDkuODAyNTkgMTAuNDE3NCA5LjUxOTE2Wk00LjY2NzU1IDMuMTUwOTdINi4yOTQ1OUM4LjM4NTQyIDMuMTUwOTcgOS4yOTA5MyA0LjM1ODM1IDkuMjkwOTMgNS44Njc1OEM5LjI5MDkzIDcuMzc2OCA4LjI2NzYxIDguNTkxNTUgNi4zNDYxIDguNTkxNTVINC42ODk2NEw0LjY2NzU1IDMuMTUwOTdaTTYuODc2MTcgMTcuMzk2Nkg0LjY2NzU1VjExLjY0NjhINy4yODExQzkuMjMyMDUgMTEuNjQ2OCAxMC40NzYyIDEyLjY5OTYgMTAuNDc2MiAxNC40Mjk3QzEwLjQ5ODMgMTYuNDk4NCA5LjIzMjA0IDE3LjM5NjYgNi45MDU2MyAxNy4zOTY2SDYuODc2MTdaIiBmaWxsPSIjMUEyQTQ5Ii8+CjxwYXRoIGQ9Ik0yMC4zMTE5IDE1LjM1NzNIMjcuMTM2NkwyOC45OTkyIDIwLjQ1MThIMzIuNjgwMkwyNS4wMDg5IDBIMjIuMzM2NUwxNC45MTU1IDIwLjQ1MThIMTguNDkzNUwyMC4zMTE5IDE1LjM1NzNaTTIyLjcyNjcgOC4zMTE3OEMyMy4yNDk0IDYuNzM2MjkgMjMuNTM2NSA1LjgzODEzIDIzLjcxMzIgNS4xMzEzN0gyMy43NUMyMy45MjY3IDUuODA4NjggMjQuMTg0NCA2LjczNjMgMjQuNzA3MSA4LjI4MjM0TDI2LjA0NyAxMi4zMjQxSDIxLjMwNThMMjIuNzI2NyA4LjMxMTc4WiIgZmlsbD0iIzFBMkE0OSIvPgo8cGF0aCBkPSJNNDUuNzQwNiAxNC41MThDNDQuNzI0NyAxMi42NzAxIDQzLjk0NDMgMTEuNTczMiA0My4zNjI3IDExLjIxMjRWMTEuMTUzNUM0NC40ODE2IDEwLjgxNjYgNDUuNDU2OCAxMC4xMTc1IDQ2LjEzNTEgOS4xNjZDNDYuODEzNCA4LjIxNDUxIDQ3LjE1NjMgNy4wNjQ2MSA0Ny4xMSA1Ljg5NzAyQzQ3LjE3MjIgNC44ODA5NyA0Ni45MzU2IDMuODY4OTUgNDYuNDI5MiAyLjk4NTg1QzQ1LjkyMjkgMi4xMDI3NSA0NS4xNjkxIDEuMzg3MjQgNDQuMjYwOCAwLjkyNzYxNUM0Mi45ODU5IDAuMzE2NDI0IDQxLjU4MDEgMC4wMjgyMDAxIDQwLjE2NzUgMC4wODgzMzg3SDM0LjkzMzFWMjAuNDUxOEgzOC40MjI3VjEyLjUxNTVINDAuMDc5MkM0MC41NDMgMTIuNjMzMyA0MS4yNDI0IDEzLjQ3MjYgNDIuMTcgMTUuMjkxTDQ0LjkzMDggMjAuNDQ0NUg0OC45MzU4TDQ1Ljc0MDYgMTQuNTE4Wk00Mi4xMTExIDguOTU5NjRDNDEuNDY2OSA5LjMyODAxIDQwLjczMjUgOS41MDkwNSAzOS45OTA4IDkuNDgyMzRIMzguNDIyN1YzLjExNDE1SDQwLjAyMDNDNDAuNzgxNCAzLjA2NTgyIDQxLjUzNzEgMy4yNzAyOCA0Mi4xNyAzLjY5NTc1QzQyLjU4MzcgMy45Nzk5OSA0Mi45MTc4IDQuMzY1MjUgNDMuMTQwNyA0LjgxNDk0QzQzLjM2MzYgNS4yNjQ2MiA0My40Njc5IDUuNzYzODEgNDMuNDQzNyA2LjI2NTEyQzQzLjQ3OTMgNi43OTE5MiA0My4zNzQ4IDcuMzE4NzkgNDMuMTQwOCA3Ljc5MjA4QzQyLjkwNjcgOC4yNjUzOCA0Mi41NTE0IDguNjY4MjMgNDIuMTExMSA4Ljk1OTY0WiIgZmlsbD0iIzFBMkE0OSIvPgo8cGF0aCBkPSJNNjUuNTgxNCAwLjA5NTcwMzFINjEuNTE3NUw1NC45OCA4Ljc3NTU5SDU0Ljg5MTdWMC4wOTU3MDMxSDUxLjQwOTRWMjAuNDU5Mkg1NC44OTE3VjExLjUyOUg1NC45OEw2MS43NDU4IDIwLjQ1OTJINjYuMDE1OEw1Ny44ODggOS45ODI5N0w2NS41ODE0IDAuMDk1NzAzMVoiIGZpbGw9IiMxQTJBNDkiLz4KPHBhdGggZD0iTTcxLjg0NjYgMTEuNTg3OUg3Ny45NzE4VjguNTYyMDlINzEuODQ2NlYzLjEyMTUySDc4LjAwMTNMNzguOTM2MiAwLjA5NTcwMzFINjguMzU2OVYyMC40NTkySDc4Ljk1ODNWMTcuNDI2SDcxLjg0NjZWMTEuNTg3OVoiIGZpbGw9IiMxQTJBNDkiLz4KPHBhdGggZD0iTTkwLjg1NTMgMTEuMjEyNFYxMS4xNTM1QzkxLjk3NTYgMTAuODE4OSA5Mi45NTIzIDEwLjEyMDMgOTMuNjMxIDkuMTY4MjlDOTQuMzA5NiA4LjIxNjI3IDk0LjY1MTUgNy4wNjUxNiA5NC42MDI2IDUuODk3MDJDOTQuNjY2NSA0Ljg4MTYxIDk0LjQzMTMgMy44Njk3NiA5My45MjYzIDIuOTg2NTZDOTMuNDIxMiAyLjEwMzM2IDkyLjY2ODQgMS4zODc1NSA5MS43NjA5IDAuOTI3NjE3QzkwLjQ4MzMgMC4zMTYzOTEgODkuMDc1MiAwLjAyODE5NjYgODcuNjYwMiAwLjA4ODM0MDZIODIuNDMzMVYyMC40NTE4SDg1LjkxNTRWMTIuNTE1NUg4Ny41NzE4Qzg4LjA0MyAxMi42MzMzIDg4LjczNSAxMy40NzI2IDg5LjY2MjcgMTUuMjkxTDkyLjQyMzQgMjAuNDQ0NUg5Ni40MzU4TDkzLjI0MDcgMTQuNTEwNkM5Mi4yMTczIDEyLjY4NDggOTEuNDM2OSAxMS41NTg1IDkwLjg1NTMgMTEuMjEyNFpNODkuNjExMSA4Ljk1OTY0Qzg4Ljk2NjkgOS4zMjgwMSA4OC4yMzI1IDkuNTA5MDUgODcuNDkwOCA5LjQ4MjM0SDg1LjkxNTRWMy4xMTQxNUg4Ny41MTI5Qzg4LjI3NDEgMy4wNjQ3MSA4OS4wMzAyIDMuMjY5MjYgODkuNjYyNyAzLjY5NTc1QzkwLjA3NzcgMy45NzkxNCA5MC40MTMzIDQuMzY0MDIgOTAuNjM3NSA0LjgxMzc2QzkwLjg2MTcgNS4yNjM1IDkwLjk2NzEgNS43NjMxMyA5MC45NDM3IDYuMjY1MTJDOTAuOTc5MyA2Ljc5MTkzIDkwLjg3NDggNy4zMTg3OSA5MC42NDA4IDcuNzkyMDlDOTAuNDA2NyA4LjI2NTM5IDkwLjA1MTQgOC42NjgyMyA4OS42MTExIDguOTU5NjRaIiBmaWxsPSIjMUEyQTQ5Ii8+CjxwYXRoIGQ9Ik0xMTMuMTkyIDAuMDI5NDQ5NUgxMTEuNDAzTDEwNC4yNCAyMC40NTE5SDEwNi44ODNMMTA4LjY3OSAxNS4xMDdIMTE1LjkyM0wxMTcuNzcxIDIwLjQ1MTlIMTIwLjQ3M0wxMTMuMTkyIDAuMDI5NDQ5NVpNMTA5LjQ0NCAxMi44NTQyTDExMS4yMDQgNy41NjgyMkMxMTEuNzcxIDUuODM4MTMgMTEyLjA4NyA0Ljg4MTA2IDExMi4yODYgNC4xMzc0OUgxMTIuMzQ1QzExMi41NjYgNC44NzM3IDExMi44NTMgNS44MDg2OCAxMTMuMzk4IDcuNTM4NzZMMTE1LjE1NyAxMi44NTQySDEwOS40NDRaIiBmaWxsPSIjMUEyQTQ5Ii8+CjxwYXRoIGQ9Ik0xMjYuMjIzIDcuNzIyODJDMTI2LjIyMyA2LjI1MDQgMTI2LjIyMyA1LjI3ODYxIDEyNi4xNDIgNC4zMjE1NEgxMjYuMTkzQzEyNi44NDkgNS4zNDQ4NyAxMjcuNjE0IDYuNTMwMTYgMTI4LjY2NyA4LjAwMjU4TDEzNy40NTcgMjAuNDUxOUgxMzkuNjY2VjAuMDg4MzQ4NEgxMzcuMTI2VjEyLjMyNDFDMTM3LjEyNiAxMy43OTY1IDEzNy4xMjYgMTQuNzY4MyAxMzcuMTg1IDE1Ljg4SDEzNy4xMjZDMTM2LjUgMTQuODY0IDEzNS43MDUgMTMuNjI3MiAxMzQuNTkzIDEyLjA4MTJMMTI2LjEyNyAwLjA4ODM0ODRIMTIzLjY3NlYyMC40NTE5SDEyNi4yMDhMMTI2LjIyMyA3LjcyMjgyWiIgZmlsbD0iIzFBMkE0OSIvPgo8cGF0aCBkPSJNMTU5Ljg2NyAxMC4xNjdDMTU5Ljg2NyA0LjI3NzM3IDE1Ni41MSAwLjA4ODM0ODQgMTQ5LjgzMyAwLjA4ODM0ODRIMTQ0LjkxNVYyMC40NTE5SDE0OS42NDJDMTU2LjM3IDIwLjQ1MTkgMTU5Ljg2NyAxNi4xMDA5IDE1OS44NjcgMTAuMTY3Wk0xNDkuNjkzIDE4LjE5OTFIMTQ3LjQzM1YyLjM3Nzk1SDE0OS42NDJDMTU0Ljc5NSAyLjM3Nzk1IDE1Ny4yMDIgNS42MTcyNyAxNTcuMjAyIDEwLjEzMDJDMTU3LjE5NSAxNC40NTkxIDE1NS4yMzcgMTguMTk5MSAxNDkuNjkzIDE4LjE5OTFaIiBmaWxsPSIjMUEyQTQ5Ii8+CjxwYXRoIGQ9Ik0zLjk5NzU4IDMyLjc1MzlDMy45OTc1OCAzMS4yODE1IDUuMTc1NTEgMzAuNzM2NyA2LjQxMjM0IDMwLjczNjdDNy44OTM4NiAzMC43NzQ3IDkuMzQyIDMxLjE4NDkgMTAuNjIzNCAzMS45MjkzVjI4LjgwMDVDOS4yNzUyMiAyOC4xNTcgNy43OTU1IDI3LjgzNjkgNi4zMDE4OSAyNy44NjU1QzIuNjIwODUgMjcuODY1NSAwLjU1OTQ4IDMwLjI4MDIgMC41NTk0OCAzMy4wMTg5QzAuNTU5NDggMzguNzMxOSA4LjIwODY5IDM4LjI3NTQgOC4yMDg2OSA0MS45NDE4QzguMjA4NjkgNDMuNTYxNCA2LjczNjI3IDQ0LjE1MDQgNS4yNjM4NiA0NC4xNTA0QzMuODE3NTggNDQuMTQyNSAyLjQxMzYgNDMuNjYxNiAxLjI2NjIzIDQyLjc4MUwwLjAwNzMyNDIyIDQ1LjM5NDZDMS41NzM1MSA0Ni40NzkgMy40NDAxMiA0Ny4wNDU0IDUuMzQ0ODMgNDcuMDE0MkM4Ljk2Njk3IDQ3LjAxNDIgMTEuNjQ2OCA0NC45Njc2IDExLjY0NjggNDEuNjQ3M0MxMS42Mzk0IDM1LjczNTUgMy45OTc1OCAzNi4xODQ2IDMuOTk3NTggMzIuNzUzOVoiIGZpbGw9IiMxQTJBNDkiLz4KPHBhdGggZD0iTTEyLjY0MDYgMjguMDM0OFYzMC44MjVIMTcuNzg2N1Y0Ni43NTY1SDIxLjAxMTNWMzAuODI1SDI1Ljc1OThMMjYuNTkxOCAyOC4wMzQ4SDEyLjY0MDZaIiBmaWxsPSIjMUEyQTQ5Ii8+CjxwYXRoIGQ9Ik0zNS40NDExIDI3Ljg2NTRDMzAuMjE0IDI3Ljg2NTQgMjYuNTMzIDMxLjc4MjEgMjYuNTMzIDM3LjQzNjFDMjYuNTMzIDQzLjA5MDIgMzAuMjE0IDQ3LjAwNjggMzUuNDQxMSA0Ny4wMDY4QzQwLjY2ODIgNDcuMDA2OCA0NC4zNDkyIDQzLjE3MTIgNDQuMzQ5MiAzNy40MzYxQzQ0LjM0OTIgMzEuNzAxMSA0MC42ODI5IDI3Ljg2NTQgMzUuNDQxMSAyNy44NjU0Wk0zNS40NDExIDQ0LjE3MjVDMzIuMTcyMyA0NC4xNzI1IDI5Ljk3MTEgNDEuNjk4OCAyOS45NzExIDM3LjQ2NTZDMjkuOTcxMSAzMy4yMzI0IDMyLjE3OTcgMzAuNzM2NyAzNS40NDExIDMwLjczNjdDMzguNzAyNSAzMC43MzY3IDQwLjkxMTEgMzMuMzIwOCA0MC45MTExIDM3LjQ2NTZDNDAuOTExMSA0MS42MTA1IDM4LjY4NzggNDQuMTcyNSAzNS40NDExIDQ0LjE3MjVaIiBmaWxsPSIjMUEyQTQ5Ii8+CjxwYXRoIGQ9Ik02MC4wMjI5IDM4LjAwM0M2MC4wMjI5IDM5LjAyNjQgNjAuMDIyOSA0MC4xNjc1IDYwLjA3NDQgNDEuMTU0SDYwLjAyMjlDNTkuNDg1NSA0MC4zMDc0IDU4Ljg0NSAzOS4zNjUgNTguMDM1MSAzOC4yNjA3TDUwLjUwMzcgMjguMDM0OEg0Ny4zMDg2VjQ2Ljc1NjVINTAuNTI1OFYzNi4xMzMxQzUwLjUyNTggMzUuMDgwMyA1MC41MjU4IDMzLjk5ODEgNTAuNDc0MyAzMy4yMzI0SDUwLjUyNThDNTEuMTE0OCAzNC4xMTU5IDUxLjczMzIgMzUuMDUwOCA1Mi41MTM2IDM2LjEwMzZMNjAuMzE3NCA0Ni43NTY1SDYzLjI2MjJWMjguMDM0OEg2MC4wMTU1TDYwLjAyMjkgMzguMDAzWiIgZmlsbD0iIzFBMkE0OSIvPgo8cGF0aCBkPSJNNzAuMzUyIDM4LjYwNjdINzYuMDEzNFYzNS44MjM5SDcwLjM1MlYzMC44MjVINzYuMDQyOUw3Ni44OTY5IDI4LjAzNDhINjcuMTM0OFY0Ni43NTY1SDc2LjkyNjNWNDMuOTczN0g3MC4zNTJWMzguNjA2N1oiIGZpbGw9IiMxQTJBNDkiLz4KPHBhdGggZD0iTTkxLjcyNCAzNS43NjVIODMuMTM5OFYyOC4wMzQ4SDc5LjkyMjZWNDYuNzU2NUg4My4xMzk4VjM4LjY1ODNIOTEuNzI0VjQ2Ljc1NjVIOTQuOTcwN1YyOC4wMzQ4SDkxLjcyNFYzNS43NjVaIiBmaWxsPSIjMUEyQTQ5Ii8+CjxwYXRoIGQ9Ik0xMDYuODc1IDI3Ljg2NTRDMTAxLjY0OCAyNy44NjU0IDk3Ljk3NDYgMzEuNzgyMSA5Ny45NzQ2IDM3LjQzNjFDOTcuOTc0NiA0My4wOTAyIDEwMS42NTYgNDcuMDA2OCAxMDYuODc1IDQ3LjAwNjhDMTEyLjA5NSA0Ny4wMDY4IDExNS43ODMgNDMuMTcxMiAxMTUuNzgzIDM3LjQzNjFDMTE1Ljc4MyAzMS43MDExIDExMi4wOTUgMjcuODY1NCAxMDYuODc1IDI3Ljg2NTRaTTEwNi44NzUgNDQuMTcyNUMxMDMuNjA3IDQ0LjE3MjUgMTAxLjQwNSA0MS42OTg4IDEwMS40MDUgMzcuNDY1NkMxMDEuNDA1IDMzLjIzMjQgMTAzLjYxNCAzMC43MzY3IDEwNi44NzUgMzAuNzM2N0MxMTAuMTM3IDMwLjczNjcgMTEyLjM1MyAzMy4zMjA4IDExMi4zNTMgMzcuNDY1NkMxMTIuMzUzIDQxLjYxMDUgMTEwLjEyMiA0NC4xNzI1IDEwNi44NzUgNDQuMTcyNVoiIGZpbGw9IiMxQTJBNDkiLz4KPHBhdGggZD0iTTEyOS45OTIgMzkuNTEyM0MxMzAuMDIxIDQwLjM4OTIgMTI5Ljg1NSA0MS4yNjE3IDEyOS41MDYgNDIuMDY2OUMxMjkuMTg4IDQyLjc0NDUgMTI4LjY3MSA0My4zMDkxIDEyOC4wMjQgNDMuNjg1M0MxMjcuMzc3IDQ0LjA2MTUgMTI2LjYzIDQ0LjIzMTQgMTI1Ljg4NCA0NC4xNzI0QzEyNS4xMzggNDQuMjMxNCAxMjQuMzkyIDQ0LjA2MTUgMTIzLjc0NCA0My42ODUzQzEyMy4wOTcgNDMuMzA5MSAxMjIuNTggNDIuNzQ0NSAxMjIuMjYyIDQyLjA2NjlDMTIxLjkyMiA0MS4yNjk1IDEyMS43NTkgNDAuNDA4MSAxMjEuNzg0IDM5LjU0MTdWMjguMDM0OEgxMTguNTY2VjM5Ljc2OTlDMTE4LjUyNSA0MS4wMTQgMTE4Ljc1MyA0Mi4yNTIyIDExOS4yMzYgNDMuMzk5NEMxMjAuMzA0IDQ1Ljg0MzYgMTIyLjYxNSA0Ny4wMzYzIDEyNS44NjIgNDcuMDM2M0MxMjkuMTA5IDQ3LjAzNjMgMTMxLjQyMSA0NS44NDM2IDEzMi40ODggNDMuNDI4OUMxMzIuOTc3IDQyLjI2NTMgMTMzLjIwNSA0MS4wMDkgMTMzLjE1OCAzOS43NDc4VjI4LjAxMjdIMTI5Ljk0MUwxMjkuOTkyIDM5LjUxMjNaIiBmaWxsPSIjMUEyQTQ5Ii8+CjxwYXRoIGQ9Ik0xMzkuNjM2IDMyLjc1MzlDMTM5LjYzNiAzMS4yODE0IDE0MC44MTQgMzAuNzM2NyAxNDIuMDUxIDMwLjczNjdDMTQzLjUzMyAzMC43NzIyIDE0NC45ODIgMzEuMTgyNSAxNDYuMjYyIDMxLjkyOTNWMjguODAwNEMxNDQuOTE3IDI4LjE1NjkgMTQzLjQzOSAyNy44MzY3IDE0MS45NDggMjcuODY1NEMxMzguMjY3IDI3Ljg2NTQgMTM2LjIwNiAzMC4yODAyIDEzNi4yMDYgMzMuMDE4OUMxMzYuMjA2IDM4LjczMTkgMTQzLjg0OCAzOC4yNzU0IDE0My44NDggNDEuOTQxN0MxNDMuODQ4IDQzLjU2MTQgMTQyLjM3NSA0NC4xNTA0IDE0MC45MDMgNDQuMTUwNEMxMzkuNDU5IDQ0LjE0MDggMTM4LjA1OCA0My42NiAxMzYuOTEyIDQyLjc4MUwxMzUuNjU0IDQ1LjQxNjZDMTM3LjIyIDQ2LjUwMDIgMTM5LjA4NiA0Ny4wNjY1IDE0MC45OTEgNDcuMDM2M0MxNDQuNjEzIDQ3LjAzNjMgMTQ3LjMgNDQuOTg5NiAxNDcuMyA0MS42NjkzQzE0Ny4yODYgMzUuNzM1NSAxMzkuNjM2IDM2LjE4NDYgMTM5LjYzNiAzMi43NTM5WiIgZmlsbD0iIzFBMkE0OSIvPgo8cGF0aCBkPSJNMTUzLjQyNiA0My45NzM3VjM4LjYwNjdIMTU5LjA4N1YzNS44MjM5SDE1My40MjZWMzAuODI1SDE1OS4xMDlMMTU5Ljk3MSAyOC4wMzQ4SDE1MC4yMDhWNDYuNzU2NUgxNjBWNDMuOTczN0gxNTMuNDI2WiIgZmlsbD0iIzFBMkE0OSIvPgo8L2c+CjwvZz4KPGRlZnM+CjxjbGlwUGF0aCBpZD0iY2xpcDBfMjE1NF8yNzkzIj4KPHJlY3Qgd2lkdGg9IjE2MCIgaGVpZ2h0PSI0Ny4wMzYzIiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8Y2xpcFBhdGggaWQ9ImNsaXAxXzIxNTRfMjc5MyI+CjxyZWN0IHdpZHRoPSIxNjAiIGhlaWdodD0iNDcuMDM2MyIgZmlsbD0id2hpdGUiLz4KPC9jbGlwUGF0aD4KPC9kZWZzPgo8L3N2Zz4K" alt="Barker and Stonehouse"></div>
-  <button id="export-pdf-btn" onclick="exportPDF()" title="Export the current view as a PDF">⬇ Export PDF</button>
 </div>
 <div id="meta-bar">
   <span id="meta-scraped">No data loaded</span>
   <span id="meta-counts"></span>
   <span id="coverage-toggle" onclick="toggleCoverage()">Data coverage by retailer ▾</span>
+  <button id="export-pdf-btn" onclick="exportPDF()" title="Export the current view as a PDF">⬇ Export PDF</button>
 </div>
 <div id="coverage-panel"></div>
 <div id="print-header"></div>
@@ -447,6 +454,7 @@
       <div class="view-tab active" data-view="products">Products</div>
       <div class="view-tab" data-view="ranges">By range</div>
       <div class="view-tab" data-view="trends">Trends</div>
+      <div class="view-tab" data-view="opportunities">Opportunities</div>
     </div>
 
     <div id="products-view">
@@ -505,6 +513,36 @@
         <select id="trend-to"></select>
       </div>
       <div id="trends-body"></div>
+    </div>
+
+    <div id="opportunities-view">
+      <div class="opp-intro" id="opp-intro"></div>
+      <div class="controls">
+        <input type="text" id="opp-search" placeholder="Search brands…">
+        <select id="opp-sort">
+          <option value="products-desc">Market size (products) ↓</option>
+          <option value="retailers-desc">Retailers stocking ↓</option>
+          <option value="avgprice-desc">Avg. price ↓</option>
+          <option value="avgprice-asc">Avg. price ↑</option>
+          <option value="name-asc">Brand A–Z</option>
+        </select>
+        <span class="ctrl-count" id="opp-count"></span>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr>
+            <th>Brand</th>
+            <th>Retailers stocking it</th>
+            <th>Products tracked</th>
+            <th>Ranges</th>
+            <th>Avg. price</th>
+            <th>Price range</th>
+            <th>Cheapest at</th>
+          </tr></thead>
+          <tbody id="opp-tbody"></tbody>
+        </table>
+        <div class="empty" id="opp-empty" style="display:none">No competitor-only brands found.</div>
+      </div>
     </div>
   </div>
 </div>
@@ -694,15 +732,17 @@ function switchBrand(brand) {
   document.querySelectorAll('.brand-tab, .brand-tab-all').forEach(t => t.classList.toggle('active', t.dataset.brand === brand));
   updateSiteFilter(); updateRangeFilter(); render(); renderRanges();
 }
-document.querySelectorAll('.view-tab').forEach(tab => tab.addEventListener('click', () => {
-  document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
-  tab.classList.add('active');
-  currentView = tab.dataset.view;
-  document.getElementById('products-view').style.display = currentView === 'products' ? 'block' : 'none';
-  document.getElementById('range-view').style.display    = currentView === 'ranges'   ? 'block' : 'none';
-  document.getElementById('trends-view').style.display   = currentView === 'trends'   ? 'block' : 'none';
-  if (currentView === 'trends') renderTrends();
-}));
+function switchView(viewName) {
+  document.querySelectorAll('.view-tab').forEach(t => t.classList.toggle('active', t.dataset.view === viewName));
+  currentView = viewName;
+  document.getElementById('products-view').style.display      = viewName === 'products'      ? 'block' : 'none';
+  document.getElementById('range-view').style.display         = viewName === 'ranges'         ? 'block' : 'none';
+  document.getElementById('trends-view').style.display        = viewName === 'trends'         ? 'block' : 'none';
+  document.getElementById('opportunities-view').style.display = viewName === 'opportunities'  ? 'block' : 'none';
+  if (viewName === 'trends') renderTrends();
+  if (viewName === 'opportunities') renderOpportunities();
+}
+document.querySelectorAll('.view-tab').forEach(tab => tab.addEventListener('click', () => switchView(tab.dataset.view)));
 function brandProducts() {
   if (activeBrand === 'all') return allProducts;
   if (activeBrand === '__competitor_only__') return allProducts.filter(p => competitorOnlyBrands.has(p.brand));
@@ -1030,6 +1070,84 @@ function renderTrends() {
 
   body.innerHTML = `<div class="trend-cards">${cardsHtml}</div>${moversHtml}`;
 }
+
+// ── Opportunities (brands competitors sell that B&S doesn't) ────────────────
+
+function computeOpportunities() {
+  const brands = [...new Set(allProducts.map(p => p.brand))];
+  return brands.map(brand => {
+    const rows = allProducts.filter(p => p.brand === brand);
+    const ourCount = rows.filter(p => p.is_us).length;
+    if (ourCount > 0) return null; // not an opportunity - we already stock it
+    const priced = rows.filter(p => p.price !== null);
+    const retailers = [...new Set(rows.map(p => p.site))];
+    const ranges = new Set(rows.map(p => p.range).filter(Boolean));
+    const avgPrice = priced.length ? priced.reduce((a,b)=>a+b.price,0) / priced.length : null;
+    const minPrice = priced.length ? Math.min(...priced.map(p=>p.price)) : null;
+    const maxPrice = priced.length ? Math.max(...priced.map(p=>p.price)) : null;
+    // cheapest retailer by its own average price for this brand, not just cheapest single item
+    let cheapestSite = null, cheapestSiteAvg = Infinity;
+    retailers.forEach(site => {
+      const siteRows = rows.filter(p => p.site === site && p.price !== null);
+      if (!siteRows.length) return;
+      const siteAvg = siteRows.reduce((a,b)=>a+b.price,0) / siteRows.length;
+      if (siteAvg < cheapestSiteAvg) { cheapestSiteAvg = siteAvg; cheapestSite = site; }
+    });
+    return {
+      brand, count: rows.length, retailers: retailers.length, ranges: ranges.size,
+      avgPrice, minPrice, maxPrice, cheapestSite,
+    };
+  }).filter(Boolean);
+}
+
+function renderOpportunities() {
+  const query = document.getElementById('opp-search').value.toLowerCase();
+  const sort = document.getElementById('opp-sort').value;
+  let opps = computeOpportunities().filter(o => !query || o.brand.toLowerCase().includes(query));
+
+  opps.sort((a, b) => {
+    if (sort === 'products-desc')  return b.count - a.count;
+    if (sort === 'retailers-desc') return b.retailers - a.retailers;
+    if (sort === 'avgprice-desc')  return (b.avgPrice ?? -1) - (a.avgPrice ?? -1);
+    if (sort === 'avgprice-asc')   return (a.avgPrice ?? Infinity) - (b.avgPrice ?? Infinity);
+    return a.brand.localeCompare(b.brand);
+  });
+
+  const totalProducts = opps.reduce((sum, o) => sum + o.count, 0);
+  document.getElementById('opp-intro').innerHTML =
+    `<strong>${opps.length}</strong> brand${opps.length!==1?'s':''} sold by tracked competitors that B&S doesn't currently stock, ` +
+    `across <strong>${totalProducts.toLocaleString()}</strong> products. Sort by market size or price to spot the ones worth a closer look.`;
+
+  document.getElementById('opp-count').textContent = `${opps.length} brands`;
+  document.getElementById('opp-empty').style.display = opps.length ? 'none' : 'block';
+
+  document.getElementById('opp-tbody').innerHTML = opps.map(o => {
+    const priceRangeHtml = o.minPrice !== null
+      ? `<span class="opp-price-range">${fmt(o.minPrice)} – ${fmt(o.maxPrice)}</span>`
+      : '<span style="color:var(--muted)">—</span>';
+    const cheapestHtml = o.cheapestSite
+      ? (() => { const [col,bg] = siteColors[allProducts.find(p=>p.site===o.cheapestSite)?.site_id] || ['#888','#eee'];
+                 return `<span class="opp-cheapest-badge" style="color:${col};border-color:${col};background:${bg}">${esc(o.cheapestSite)}</span>`; })()
+      : '<span style="color:var(--muted)">—</span>';
+    return `<tr>
+      <td><a class="opp-brand-link" onclick="goToOpportunityBrand('${esc(o.brand).replace(/'/g,"\\'")}')">${esc(o.brand)}</a></td>
+      <td>${o.retailers}</td>
+      <td>${o.count}</td>
+      <td>${o.ranges}</td>
+      <td>${o.avgPrice !== null ? fmt(o.avgPrice) : '—'}</td>
+      <td>${priceRangeHtml}</td>
+      <td>${cheapestHtml}</td>
+    </tr>`;
+  }).join('');
+}
+
+function goToOpportunityBrand(brand) {
+  switchBrand(brand);
+  switchView('products');
+}
+
+document.getElementById('opp-search').addEventListener('input', renderOpportunities);
+document.getElementById('opp-sort').addEventListener('change', renderOpportunities);
 
 function fmt(n) {
   if (n===null||n===undefined) return '—';
@@ -1386,5 +1504,4 @@ function clearChat() {
 }
 </script>
 </body>
-  
 </html>
